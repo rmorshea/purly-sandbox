@@ -1,0 +1,6 @@
+.ReactCodeMirror { height: 100%; width: 750px; margin: 10px; margin: 0px; }
+.CodeMirror { height: 100%; width: 100%; }
+#layout { float: left; }
+#editor { float: left; }
+#output { float: left; width: 750px; overflow: auto; }
+body { background-color: floralwhite; }
