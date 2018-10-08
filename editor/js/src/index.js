@@ -25,10 +25,10 @@ class Sandbox extends React.Component {
 
   render() {
     let id = makeId(12);
-    const uri = document.location.hostname + ":" + document.location.port;
-    let executorEndpoint=`http://${uri}/editor/sandbox-exec-${id}`
-    let layoutEndpoint=`ws://${uri}/state/model/sandbox-${id}/stream`
-    let outputEndpoint=`ws://${uri}/state/model/sandbox-output-${id}/stream`
+    const uri = window.location.hostname + ":80";
+    let executorEndpoint=`http://${uri}/editor/sandbox-exec-${id}`;
+    let layoutEndpoint=`ws://${uri}/state/model/sandbox-${id}/stream`;
+    let outputEndpoint=`ws://${uri}/state/model/sandbox-output-${id}/stream`;
     return (
       <div>
         <Editor executorEndpoint={ executorEndpoint } outputEndpoint={ outputEndpoint }/>
@@ -57,13 +57,13 @@ class Editor extends React.Component {
 			code: newCode
 		});
     if ( this.updateTrigger !== undefined ) {
-      clearTimeout(this.updateTrigger)
+      clearTimeout(this.updateTrigger);
     }
     let updateView = () => {
       let toSend = JSON.stringify({ code: newCode });
       $.post(this.props.executorEndpoint, toSend);
     }
-    this.updateTrigger = setTimeout(updateView, 2000)
+    this.updateTrigger = setTimeout(updateView, 2000);
 	}
 
 	render = () => {

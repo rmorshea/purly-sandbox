@@ -62,8 +62,8 @@ async def static(request, path):
 @sandbox.post("/sandbox-exec-<conn>")
 @cross_origin(sandbox)
 async def to_exe(request, conn):
-    layout = purly.Layout(f"ws://localhost:8000/model/sandbox-{conn}/stream")
-    output = purly.Layout(f"ws://localhost:8000/model/sandbox-output-{conn}/stream")
+    layout = purly.Layout(f"ws://nginx:80/state/model/sandbox-{conn}/stream")
+    output = purly.Layout(f"ws://nginx:80/state/model/sandbox-output-{conn}/stream")
 
     data = connection_data(conn)
     begin, release = data["events"]
@@ -109,5 +109,4 @@ async def clean_connection():
 
 
 if __name__ == "__main__":
-    purly.state.Machine(refresh=60, cors=True).daemon(host="0.0.0.0", port=8000)
-    sandbox.run(host="0.0.0.0", port=5000)
+    sandbox.run(host="0.0.0.0", port=8000)

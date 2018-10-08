@@ -14,6 +14,7 @@ ADD py/run.py /sandbox/py
 ADD js/ /sandbox/js
 
 # install python dependancies
+RUN pip install --upgrade pip
 RUN cd py && pip install -r requirements
 
 # install npm
@@ -27,7 +28,6 @@ RUN cd js && npm install
 RUN cd js && npm run build
 
 EXPOSE 8000
-EXPOSE 8001
 
 # start the sanic app
-CMD ["python", "py/run.py"]
+CMD ["python", "-u", "py/run.py"]
