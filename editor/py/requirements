@@ -1,4 +1,4 @@
 sanic
-purly==0.2.1-dev
+purly==0.2.1-dev4
 sanic_cors
 asyncio

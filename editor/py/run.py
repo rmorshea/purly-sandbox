@@ -53,7 +53,13 @@ def events():
     return begin, release
 
 
-@sandbox.get("/static/<path:path>")
+@sandbox.get("/")
+async def static(request):
+    absolute = os.path.join(JS_BUILD, "index.html")
+    return await response.file(absolute)
+
+
+@sandbox.get("/<path:path>")
 async def static(request, path):
     absolute = os.path.join(JS_BUILD, *path.split("/"))
     return await response.file(absolute)
