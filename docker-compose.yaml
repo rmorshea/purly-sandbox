@@ -2,20 +2,20 @@ version: '3'
 services:
   nginx:
     restart: always
-    build: ./nginx/
+    build: ./src/nginx/
     ports:
       - 80:80
     depends_on:
       - editor
   editor:
     restart: always
-    build: ./editor
+    build: ./src/editor
     depends_on:
       - state
     read_only: true
   state:
     restart: always
-    build: ./state
+    build: ./src/state
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
