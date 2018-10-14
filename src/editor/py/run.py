@@ -14,6 +14,9 @@ from sanic_cors import cross_origin
 HERE = os.path.dirname(__file__)
 JS_BUILD = os.path.join(HERE, "..", "js", "build")
 
+PURLY_SERVER_HOST = os.environ["PURLY_SERVER_HOST"]
+PURLY_SERVER_PORT = os.environ["PURLY_SERVER_PORT"]
+
 
 @contextlib.contextmanager
 def output_to_layout(layout):
@@ -68,8 +71,10 @@ async def static(request, path):
 @sandbox.post("/sandbox-exec-<conn>")
 @cross_origin(sandbox)
 async def to_exe(request, conn):
-    layout = purly.Layout(f"ws://nginx:80/state/model/sandbox-{conn}/stream")
-    output = purly.Layout(f"ws://nginx:80/state/model/sandbox-output-{conn}/stream")
+    uri = f"{PURLY_SERVER_HOST}:{PURLY_SERVER_PORT}"
+    print(uri)
+    layout = purly.Layout(f"ws://{uri}/model/sandbox-{conn}/stream")
+    output = purly.Layout(f"ws://{uri}/model/sandbox-output-{conn}/stream")
 
     data = connection_data(conn)
     begin, release = data["events"]

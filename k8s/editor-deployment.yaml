@@ -18,8 +18,15 @@ spec:
         io.kompose.service: editor
     spec:
       containers:
-      - image: editor
+      - env:
+        - name: PURLY_SERVER_HOST
+          value: state
+        - name: PURLY_SERVER_PORT
+          value: "8000"
+        image: gcr.io/purly-sandbox/editor:0.1.0-dev2
         name: editor
+        ports:
+        - containerPort: 8000
         resources: {}
       restartPolicy: Always
 status: {}

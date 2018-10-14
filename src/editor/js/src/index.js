@@ -25,10 +25,11 @@ class Sandbox extends React.Component {
 
   render() {
     let id = makeId(12);
-    const uri = window.location.hostname + ':80';
-    let executorEndpoint=`http://${uri}/sandbox-exec-${id}`;
-    let layoutEndpoint=`ws://${uri}/state/model/sandbox-${id}/stream`;
-    let outputEndpoint=`ws://${uri}/state/model/sandbox-output-${id}/stream`;
+    const editorURI = window.location.hostname + ':80';
+    const stateURI = window.location.hostname + ':8000';
+    let executorEndpoint=`http://${editorURI}/sandbox-exec-${id}`;
+    let layoutEndpoint=`ws://${stateURI}/model/sandbox-${id}/stream`;
+    let outputEndpoint=`ws://${stateURI}/model/sandbox-output-${id}/stream`;
     let editor = ( <Editor executorEndpoint={ executorEndpoint } outputEndpoint={ outputEndpoint }/> );
     let navbar = menu()
     return (

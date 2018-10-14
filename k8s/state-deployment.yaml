@@ -23,8 +23,10 @@ spec:
           value: redis
         - name: REDIS_PORT
           value: "6379"
-        image: state
+        image: gcr.io/purly-sandbox/state:0.1.0-dev2
         name: state
+        ports:
+        - containerPort: 8000
         resources: {}
       restartPolicy: Always
 status: {}

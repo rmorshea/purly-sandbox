@@ -1,0 +1,26 @@
+version: '3'
+services:
+  editor:
+    restart: always
+    build: ./editor
+    ports:
+      - 80:8000
+    depends_on:
+      - state
+    environment:
+      - PURLY_SERVER_HOST=state
+      - PURLY_SERVER_PORT=8000
+    read_only: true
+  state:
+    restart: always
+    build: ./state
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - redis
+    ports:
+      - 8000:8000
+  redis:
+    restart: always
+    image: redis
