@@ -9,5 +9,5 @@ src = os.path.join(root, "src")
 
 for name in os.listdir(src):
     if name != "docker-compose.yaml":
-        tag = "gcr.io/purly-sandbox/{name}:{version}"
+        tag = f"gcr.io/purly-sandbox/{name}:{version}"
         subprocess.call(["docker", "build", "-t", tag, f"./{name}"])
