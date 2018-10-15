@@ -2,12 +2,10 @@ import os
 import sys
 import subprocess
 
-version = sys.argv[1]
-
 root = os.getcwd()
-src = os.path.join(root, "src")
+name, version = sys.argv[1].split(":")
+path = os.path.join(root, "src", name)
+tag = f"gcr.io/purly-sandbox/{name}:{version}"
 
-for name in os.listdir(src):
-    if name != "docker-compose.yaml":
-        tag = f"gcr.io/purly-sandbox/{name}:{version}"
-        subprocess.call(["docker", "push", tag])
+subprocess.call(["docker", "build", "-t", tag, path])
+subprocess.call(["docker", "push", tag])

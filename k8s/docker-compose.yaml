@@ -1,28 +1,31 @@
 version: '3'
 services:
+  nginx:
+    restart: always
+    image: gcr.io/purly-sandbox/nginx:0.1.0-dev1
+    ports:
+      - 80:80
   editor:
     restart: always
-    image: gcr.io/purly-sandbox/editor:0.1.0-dev2
-    ports:
-      - 80:8000
+    image: gcr.io/purly-sandbox/editor:0.1.0-dev4
     depends_on:
       - state
     environment:
       - PURLY_SERVER_HOST=state
       - PURLY_SERVER_PORT=8000
     read_only: true
+    ports:
+      - 8000:8000
   state:
     restart: always
-    image: gcr.io/purly-sandbox/state:0.1.0-dev2
+    image: gcr.io/purly-sandbox/state:0.1.0-dev4
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
-    depends_on:
-      - redis
     ports:
       - 8000:8000
   redis:
     restart: always
-    image: redis
+    image: redis:latest
     ports:
       - 6379:6379

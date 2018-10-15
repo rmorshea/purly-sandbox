@@ -23,7 +23,7 @@ ul {
 
 li {
     color: #fff;
-  background: #607d8b;
+    background: #607d8b;
     display: block;
     float: left;
     padding: 1rem;
@@ -34,7 +34,6 @@ li {
 
 li a {
   color: #fff;
-  display:block;
 }
 
 li:hover {

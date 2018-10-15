@@ -27,6 +27,8 @@ RUN cd js && npm run build
 ADD py/purly /sandbox/py/purly
 RUN cd /sandbox/py/purly && pip install .
 
+EXPOSE 8000
+
 # start the sanic app
 ADD py/run.py /sandbox/py
 CMD ["python", "-u", "py/run.py"]

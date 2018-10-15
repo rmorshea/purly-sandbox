@@ -25,13 +25,12 @@ class Sandbox extends React.Component {
 
   render() {
     let id = makeId(12);
-    const editorURI = window.location.hostname + ':80';
-    const stateURI = window.location.hostname + ':8000';
-    let executorEndpoint=`http://${editorURI}/sandbox-exec-${id}`;
-    let layoutEndpoint=`ws://${stateURI}/model/sandbox-${id}/stream`;
-    let outputEndpoint=`ws://${stateURI}/model/sandbox-output-${id}/stream`;
+    const uri = window.location.hostname + ':80';
+    let executorEndpoint=`http://${uri}/sandbox-exec-${id}`;
+    let layoutEndpoint=`ws://${uri}/state/model/sandbox-${id}/stream`;
+    let outputEndpoint=`ws://${uri}/state/model/sandbox-output-${id}/stream`;
     let editor = ( <Editor executorEndpoint={ executorEndpoint } outputEndpoint={ outputEndpoint }/> );
-    let navbar = menu()
+    let navbar = <Menu/>
     return (
       <div>
         { navbar }
@@ -100,22 +99,24 @@ class Editor extends React.Component {
 };
 
 
-function menu() {
-  return (
-    <nav>
-      <ul>
-      <li>
-        <a>Examples</a>
-        <ul className="dropdown">
-          <li onClick={ () => { window.currentEditor.updateCode(toggleButtonCode, true) } }><a>Toggle Button</a></li>
-          <li onClick={ () => { window.currentEditor.updateCode(colorPickerCode, true) } }><a>Color Picker</a></li>
-          <li onClick={ () => { window.currentEditor.updateCode(gridSelectorCode, true) } }><a>Grid Selector</a></li>
+class Menu extends React.Component {
+  render = () => {
+    return (
+      <nav>
+        <ul>
+        <li>
+          <a>Examples</a>
+          <ul className="dropdown">
+            <li onClick={ () => { window.currentEditor.updateCode(toggleButtonCode, true) } }><a>Toggle Button</a></li>
+            <li onClick={ () => { window.currentEditor.updateCode(colorPickerCode, true) } }><a>Color Picker</a></li>
+            <li onClick={ () => { window.currentEditor.updateCode(gridSelectorCode, true) } }><a>Grid Selector</a></li>
+          </ul>
+        </li>
+        <li onClick={() => this.projectLink.click()}><a ref={a => this.projectLink = a} href="https://github.com/rmorshea/purly" target="_blank">GitHub</a></li>
         </ul>
-      </li>
-      <li><a href="https://github.com/rmorshea/purly" target="_blank">GitHub</a></li>
-      </ul>
-    </nav>
-  );
+      </nav>
+    );
+  }
 }
 
 

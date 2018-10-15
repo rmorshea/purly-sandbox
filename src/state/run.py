@@ -133,4 +133,4 @@ class Models:
 
 
 if __name__ == "__main__":
-    Server(refresh=60, cors=True).run(host="0.0.0.0", port=8000)
+    RedisPurlyServer(refresh=60, cors=True).run(host="0.0.0.0", port=8000)
